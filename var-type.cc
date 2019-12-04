@@ -433,21 +433,18 @@ HexType::PadToBlocksize (size_t bs)
     size_t block_size = bs;	//bs was given with hextype in mind, calculating size in ascii land
 
     pad_length = GetPadLength (block_size, input_length);
-	
-	Words padded_string;
-	padded_string.w = (uint8_t *) malloc ((input_length + pad_length) * sizeof (uint8_t));
-	padded_string.l = input_length + pad_length;
-
-	memcpy (padded_string.w, hex.w, input_length);
-	
+    Words padded_string;
+    padded_string.w = (uint8_t *) malloc ((input_length + pad_length) * sizeof (uint8_t));
+    padded_string.l = input_length + pad_length;
+    memcpy (padded_string.w, hex.w, input_length);
     uint8_t pad_word_a = ((pad_length/2) & 0xF0) >> 4;	
     uint8_t pad_word_b = ((pad_length/2) & 0x0F);	
         
-	for (size_t i = input_length; i < padded_string.l; i+=2)
- 	{
-		padded_string.w[i] = pad_word_a;
-		padded_string.w[i+1] = pad_word_b;
-	}	
+    for (size_t i = input_length; i < padded_string.l; i+=2)
+    {
+	padded_string.w[i] = pad_word_a;
+	padded_string.w[i+1] = pad_word_b;
+    }	
 
     hex = padded_string;
 }
