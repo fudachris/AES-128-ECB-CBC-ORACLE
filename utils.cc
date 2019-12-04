@@ -141,30 +141,30 @@ L_Table (int x, int y)
 //FileReader Class
 FileReader::FileReader(std::string filename, bool isInputAscii)
 {
-	std::ifstream input(filename.c_str());
+    std::ifstream input(filename.c_str());
     c = (char *) malloc (1 * sizeof(uint8_t));
-	c[0] = 0;
+    c[0] = 0;
 
-	std::string line;
+    std::string line;
     total_length = 0;
+    
+    for (;getline(input, line);)
+    {
+	if (isInputAscii)
+    {
+        line += '\n';
+    }
 
-	for (;getline(input, line);)
-	{
-        if (isInputAscii)
-        {
-            line += '\n';
-        }
+    size_t length = line.length();
+    char  *a = (char *) malloc (length * sizeof(char));
 
-		size_t length = line.length();
-        char  *a = (char *) malloc (length * sizeof(char));
+     memcpy (a,line.c_str(),length);
 
-        memcpy (a,line.c_str(),length);
+     c = (char *) realloc (c, (length+total_length)*sizeof(uint8_t));
 
-		c = (char *) realloc (c, (length+total_length)*sizeof(uint8_t));
+     memcpy(c+total_length, a, length);
 
-		memcpy(c+total_length, a, length);
-
-		total_length += length;
+     total_length += length;
 	}
 }
 
