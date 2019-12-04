@@ -377,10 +377,7 @@ EncryptCBC::EncryptInputCBC(HexType inh, HexType hiv, std::vector<HexType> ks)
     uint8_t *ct = (uint8_t*) malloc (1 * sizeof (uint8_t));
     ct[0] = 0;
     size_t ct_l = 0;
-    
-    //since q11 asks for a random 5-10byte header appended at the head/tail,
-    //this var is used to track the number of bytes copied from the pt without
-    //the rand 5-10 byte pads
+   
     size_t cp_length = 32;
 
     std::vector<HexType> cipherTexts;
